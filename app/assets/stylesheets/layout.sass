@@ -1,0 +1,307 @@
+@import 'variables'
+
+@font-face
+  font-family: 'Stephenson'
+  src: url(#{font_path('Steph.ttf')}) format('truetype')
+
+@font-face
+  font-family: 'Blake'
+  src: url(#{font_path('Blake.ttf')}) format('truetype')
+
+/* ~~~page~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+html
+  height: 100%
+  box-sizing: border-box
+  min-width: 1200px
+
+body
+  margin: 0
+  padding: 0
+  font-family: $regular-font
+  font-weight: 400
+  font-size: 1em
+  background-color: $behind-page-bg
+
+/* ~~~topBar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#top-bar
+  margin: 0
+  padding: 0
+  height: 40px
+  background-color: $bar-color-bg
+  color: $bar-color-t
+  a
+    color: $bar-color-t
+    font-size: 1.3em
+  .dropdown
+    padding: 12px
+  .dropdown-menu a
+    color: $bar-color-bg
+
+#manual-link
+  position: absolute
+  top: 12px
+  right: 16px
+
+/* ~~~title~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#title
+  margin: 20px 10% 20px 10%
+  display: flex
+  align-items: center
+  h1
+    margin: 0
+    padding-left: 20px
+    font-family: $title-font
+    font-size: $h1-font-size
+  img
+    padding: 0px
+    width: 270px
+
+/* ~~~nav~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.navBar
+  margin: $margin-spacing
+  padding: 0px
+  padding-left: 5%
+  background-color: $bar-color-bg
+  ul
+    margin: 0px
+    padding-left: 0
+    display: table
+  ul li
+    padding-right: 10px
+    list-style-type: none
+    display: table-cell
+  ul a
+    margin: 0px
+    min-width: 100px
+    text-align: center
+    padding: 14px 15px
+    list-style-type: none
+    text-decoration: none
+    background-color: $bar-link-bg
+    font-size: 1.3em
+    color: $bar-color-t
+    border: none
+    outline: none
+    cursor: pointer
+    transition: all 0.2s ease-in-out
+    display: table-cell
+    vertical-align: middle
+  ul a:hover
+    background-color: $bar-color-t
+    color: $bar-link-bg
+  .current
+    background-color: $bar-color-t
+    color: $bar-link-bg
+
+/* ~~~main~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#main-container
+  margin: $margin-spacing
+  padding: 40px 5px 80px 5px
+  background-color: $white-bg
+  min-height: calc(100vh)
+
+.h2-title
+  margin-left: 30px
+  font-family: $title-font
+  font-size: $h2-font-size
+  color: $h2-font-color
+
+.h3-title
+  margin-left: 50px
+  color: $h2-font-color
+
+.info-box
+  margin: 2.5%
+  margin-top: 0px
+  padding: 0px
+  min-height: 60%
+  font-size: $font-size
+  color: $bar-color-t
+
+.information-table
+  margin: 0px 0px 30px 0px
+  width: 100%
+  text-align: center
+  tr th
+    font-size: 0.85em
+    padding: 2px 5px
+    min-width: 60px
+    height: 50px
+    background-color: $bar-link-bg
+    font-family: $title-font
+    text-align: center
+  tr td
+    font-size: 0.75em
+    padding: 2px 5px
+    min-width: 60px
+    height: 40px
+  .view-button a
+    padding: 5px 6px
+    opacity: 0.7
+    border: none
+    background-color: $view-button
+    color: $bar-color-t
+    text-align: center
+    border-radius: 4px
+  .view-button a:hover
+    opacity: 1
+  .edit-button a
+    padding: 5px 6px
+    opacity: 0.7
+    border: none
+    background-color: $edit-button
+    color: $bar-color-t
+    text-align: center
+    border-radius: 4px
+  .edit-button a:hover
+    opacity: 1
+  .delete-button a
+    padding: 5px 6px
+    opacity: 0.7
+    border: none
+    background-color: $delete-button
+    color: $bar-color-t
+    text-align: center
+    border-radius: 4px
+  .delete-button a:hover
+    opacity: 1
+  tr:nth-child(even)
+    background-color: $table-r1-color
+  tr:nth-child(odd)
+    background-color: $table-r2-color
+  button
+    padding: 5px 6px
+    opacity: 0.7
+    border: none
+    background-color: $edit-button
+    color: $bar-color-t
+    text-align: center
+    border-radius: 4px
+  button:hover
+    opacity: 1
+
+.large-content-table
+  th
+    font-size: 0.8em
+  td
+    font-size: 0.75em
+
+#upper-space-table
+  margin: 30px 0 30px 0
+
+.back-button
+  margin: 0px 0px 0px 40px
+  diplay: flex
+  position: absolute
+  padding: 20px 30px
+  background-color: rgb(0,102,179)
+  a
+    color: $bar-color-t
+
+#red-text
+  color: $delete-button
+
+.extra-information
+  margin-left: 50px
+  color: $h2-font-color
+
+#table-right-buttons
+  margin: 0px 20px 0px 0px
+  padding: 0
+  display: flex
+  float: right
+  align-items: centre
+  #left-button
+    margin-right: 10px
+    padding: 20px
+    background-color: $button-blue
+  #right-button
+    padding: 20px
+    background-color: $button-blue
+  a
+    color: $bar-color-t
+
+/* ~~~footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#footer
+  margin: 0
+  padding: 20px
+  height: $footer-height
+  background-color: $bar-color-bg
+  color: $bar-color-t
+  a
+    opacity: 1
+    text-decoration: underline
+    color: $bar-color-t
+  a:hover
+    background-color: $bar-color-t
+    color: $bar-color-bg
+    opacity: 1
+
+#user-footer
+  margin: 0 20% 20px 20%
+  display: table
+  width: 80%
+  th
+    font-size: 1.7em
+  td
+    padding: 5px 0px 0px 15px
+    font-size: 1.4em
+
+#bottom-bar
+  margin-top: 0
+  padding: 15px 0 5px 10px
+  background-color: $bar-link-bg
+  color: $bar-color-t
+
+/* ~~~login~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.panel-heading
+  color: #010000
+  font-size: 0.9em
+
+.panel-body
+  color: #010000
+  font-size: 0.9em
+
+.panel-footer
+  color: #010000
+  font-size: 0.9em
+
+/* ~~~media~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* ~~~1349px~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+@media screen and (max-width:1300px)
+
+  html
+    min-width: 1000px
+
+  .navBar
+    margin-left: 20px
+    margin-right: 20px
+
+  #main-container
+    margin-left: 20px
+    margin-right: 20px
+
+  .information-table
+    th
+      font-size: 0.8em
+    tr td
+      height: 40px
+      font-size: 0.75em
+
+  .large-content-table
+    th
+      font-size: 0.7em
+    td
+      font-size: 0.55em

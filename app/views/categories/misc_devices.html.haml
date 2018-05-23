@@ -1,0 +1,19 @@
+- content_for :title, "Category - Misc. Devices"
+
+%h2.h2-title Category - Misc. Devices
+
+%table#category-table
+  - @miscs.each do |misc|
+    %tr
+      %td
+        #c1
+          = misc.item_name
+          %br
+          = misc.loan_time
+      %td#c2
+        = link_to 'Add to request basket', pages_path(:id => misc.id), method: :post
+      %td#c3
+        = link_to 'Click to request device', new_loan_path(:id => misc.id)
+
+.back-button
+  = link_to fa_icon('angle-left', text: 'Back'), home_path

@@ -1,0 +1,45 @@
+%h2.h2-title Request Basket
+%p.form-required-field-note NB: Clicking Save for one item will not save information for others
+
+- if @loans.count < 1
+  #empty-basket
+    = fa_icon('shopping-basket', text: false)
+    %p Empty basket
+
+- else
+  - can_request = true
+  %table#request-basket-table
+    %tr
+      %th Item information
+      %th Return Date
+      %th Quantity
+      %th Reason for loan
+      %th
+      %th
+    - @loans.each do |loan|
+      - @inventories.where(:id => loan.inventory_id).each do |inventory|
+        - if loan.due_date.present? && loan.reason_for_loan.present? && loan.amount_requested.present?
+        - else
+          - can_request = false
+        = simple_form_for loan, :url => request_basket_path(loan), method: :put do |f|
+          %tr
+            %td
+              #basket-info
+                = inventory.item_name
+                %br
+                = inventory.loan_time
+            %td#basket-date
+              = f.input :due_date, label: false, as: :date, html5: true
+            %td#basket-amount
+              = f.input :amount_requested, label: false, collection: 1..15
+            %td#basket-reason
+              = f.input :reason_for_loan, label: false, input_html: {rows: 2}
+            %td.save-changes-button
+              = f.submit 'Save'
+            %td.delete-button
+              = link_to 'Remove', request_basket_path(loan), method: :delete
+
+  - if can_request
+    #request-all-items= link_to 'Request all items', new_request_basket_path
+  - else
+    %button.cannot-request-button{"data-balloon" => "You must fill in all fields for all items!", "data-balloon-pos" => "up"} Request all items

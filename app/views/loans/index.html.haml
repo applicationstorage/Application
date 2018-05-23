@@ -1,0 +1,36 @@
+%h2.h2-title Loan Approval
+
+%table.information-table.large-content-table#upper-space-table
+  %tr
+    %th Id
+    %th Item
+    %th Name
+    %th Email
+    %th Request date
+    %th Requested due date
+    %th No. in stock/Total no.
+    %th Quantity
+    %th Reason
+    %th Edit due date
+    %th Accept
+    %th Reject
+  - @loans.each do |loan|
+    - @inventories.where(:id => loan.inventory_id).each do |inventory|
+      - reason = loan.reason_for_loan
+      %tr
+        %td= loan.id
+        %td= inventory.item_name
+        %td= loan.requestee_name
+        %td= loan.requestee_email
+        %td= loan.request_date.strftime("%d/%m/%Y")
+        %td= loan.due_date.strftime("%d/%m/%Y")
+        %td
+          = inventory.total_available
+          \/
+          = inventory.total_stock
+        %td= loan.amount_requested
+        %td
+          %button{"data-balloon-length" => "large", "data-balloon" => reason, "data-balloon-pos" => "up"} (Hover)
+        %td.edit-button= link_to 'Edit', edit_admin_summary_path(loan)
+        %td.view-button= link_to 'Accept', loan_path(loan), method: :put, data: {confirm: 'Accept the loan request?'}
+        %td.delete-button= link_to 'Reject', loan_path(loan), method: :delete, data: {confirm: 'Are you sure you want to reject the loan request?'}

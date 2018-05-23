@@ -1,0 +1,12 @@
+#form
+  = simple_form_for @inventory do |f|
+    = f.input :item_name, required: true, :placeholder => 'Name of item'
+    %label Category
+    %br
+    = f.select :item_category, [['Departmental Devices'],['Laptops'],['Tablets'],['Cameras & Recorders'],['Audio Devices'], ['Misc. Devices']]
+    %br
+    %label Loan time
+    %br
+    = f.select :loan_time, [['Short'], ['Medium'], ['Long']]
+    %br
+    = submit_button 'Save Item'

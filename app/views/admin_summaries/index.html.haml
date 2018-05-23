@@ -1,0 +1,50 @@
+%h2.h2-title Summary of current loans
+
+%table.information-table.large-content-table#upper-space-table
+  %tr
+    %th Id
+    %th Item
+    %th Model
+    %th Loaned to
+    %th Serial No.
+    %th Status
+    %th Due date
+    %th Edit due date
+    %th Item returned?
+    /%th Auto-email
+    %th Personal email
+  - @loans.each do |loan|
+    - @items.where(:loan_token => loan.loan_token).each do |item|
+      - @inventories.where(:id => loan.inventory_id).each do |inventory|
+        %tr
+          %td= loan.id
+          %td
+            - if loan.due_date < Date.today
+              #red-text= inventory.item_name
+            - else
+              = inventory.item_name
+          %td
+            - if loan.due_date < Date.today
+              #red-text= item.model_type
+            - else
+              = item.model_type
+          %td
+            - if loan.due_date < Date.today
+              #red-text= loan.requestee_name
+            - else
+              = loan.requestee_name
+          %td
+            - if loan.due_date < Date.today
+              #red-text= item.serial_equipment_number
+            - else
+              = item.serial_equipment_number
+          %td
+            - if loan.due_date < Date.today
+              #red-text OVERDUE
+            - else
+              \-
+          %td= loan.due_date.strftime("%d/%m/%Y")
+          %td.edit-button= link_to 'Edit', edit_admin_summary_path(loan)
+          %td.view-button= link_to 'Item returned?', admin_summary_path(item), method: :delete, data: {confirm: 'Click OK if this device has been returned'}
+          /%td.edit-button= link_to 'Notify user', admin_summaries_path
+          %td.edit-button= link_to 'Contact User', "mailto:#{loan.requestee_email}"

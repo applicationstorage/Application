@@ -1,0 +1,30 @@
+%h2.h2-title Loan History
+
+%table.information-table#upper-space-table
+  %tr
+    %th Id
+    %th Model
+    %th Serial/Equipment no.
+    %th User email
+    %th Requested
+    %th Due date
+    %th Returned
+    %th Late?
+    %th Delete
+  - @loan_histories.each do |loan_history|
+    - @items.where(:id => loan_history.item_id).each do |item|
+      - @loans.where(:id => loan_history.loan_id).each do |loan|
+        %tr
+          %td= loan.id
+          %td= item.model_type
+          %td= item.serial_equipment_number
+          %td= loan.requestee_email
+          %td= loan.request_date.strftime("%d/%m/%Y")
+          %td= loan.due_date.strftime("%d/%m/%Y")
+          %td= loan_history.returned_on.strftime("%d/%m/%Y")
+          %td
+            - if loan_history.late
+              Yes
+            - else
+              No
+          %td.delete-button= link_to 'Delete', loan_history_path(loan_history), method: :delete, data: {confirm: 'Are you sure you want to delete this history information?'}

@@ -1,0 +1,28 @@
+A loan has been rejected for the email:
+= @loan.requestee_email
+%br
+that was to to be returned by
+%br
+= @loan.due_date.strftime("%d/%m/%Y")
+%br
+%br
+Quantity of item requested:
+= @loan.amount_requested
+%br
+%br
+%br
+%br
+Your reason for the loan:
+%br
+= @loan.reason_for_loan
+%br
+%br
+Please find the details of your request below:
+%table.information-table
+  - @inventories.where(:id => @loan.inventory_id).each do |inventory|
+    %tr
+      %td Item:
+      %td= inventory.item_name
+    %tr
+      %td Category:
+      %td= inventory.item_category

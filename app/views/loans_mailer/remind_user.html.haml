@@ -1,0 +1,38 @@
+- if @loan.due_date < Date.today
+  YOUR LOAN IS OVERDUE
+  %br
+  %br
+
+This email is to notify 
+= @loan.requestee_email
+%br
+of the deadline of your loan, requested on
+%br
+= @loan.request_date.strftime("%d/%m/%Y")
+%br
+to be/have been returned by
+%br
+= @loan.due_date.strftime("%d/%m/%Y")
+%br
+%br
+Quantity of item requested:
+= @loan.amount_requested
+%br
+%br
+Please find the details of your request below:
+%table.information-table
+  - @items.each do |item|
+    - @inventories.where(:id => @loan.inventory_id).each do |inventory|
+      %tr
+        %td Item:
+        %td= inventory.item_name
+      %tr
+        %td Category:
+        %td= inventory.item_category
+      %tr
+        %td Model
+        %td= item.model_type
+      %tr
+        %td Serial Number
+        %td= item.serial_equipment_number
+        

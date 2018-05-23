@@ -1,0 +1,66 @@
+%h2.h2-title= @inventory.item_name
+
+#table-right-buttons
+  #left-button
+    = link_to fa_icon('angle-left', text: 'Back'), inventories_path
+  #right-button
+    = link_to fa_icon('plus-circle', text: 'Add New Device'), new_item_path(:id => @inventories)
+
+.extra-information
+  Category:
+  = @inventory.item_category
+  %br
+  Loan length:
+  = @inventory.loan_time
+
+%table.information-table
+  %tr
+    %th Model
+    %th Serial/Eq No.
+    %th User
+    %th Email
+    %th Purchase Price
+    %th Purchase Date
+    %th Location
+    %th RP
+    %th Edit
+    %th Dispose
+  - @items.where(:inventory_id => @inventories).where(:disposed_of => false).each do |item|
+    - @loans.where(:loan_token => item.loan_token).each do |loan|
+      - @research_projects.where(:id => item.research_project_id). each do |research_project|
+        %tr
+          %td= item.model_type
+          %td= item.serial_equipment_number
+          %td
+            - if item.is_research_project
+              = research_project.researcher_name
+            - elsif loan.requestee_name.present?
+              = loan.requestee_name
+            - else
+              \-
+          %td
+            - if item.is_research_project
+              = research_project.researcher_email
+            - elsif loan.requestee_email.present?
+              = loan.requestee_email
+            - else
+              \-
+          %td
+            £
+            = item.purchase_price
+          %td= item.purchase_date.strftime("%d/%m/%Y")
+          %td
+            - if item.item_location.present?
+              = item.item_location
+            - else
+              \-
+          %td.view-button
+            - if item.is_research_project
+              = link_to '✓', edit_research_project_path(item.research_project_id)
+            - else
+              \-
+          %td.edit-button= link_to 'Edit', edit_item_path(item)
+          %td.delete-button= link_to 'Dispose', item_path(item), method: :delete, data: {confirm: 'Are you sure you want to dispose of this device?'}
+
+.back-button
+  = link_to fa_icon('angle-left', text: 'Back'), inventories_path

@@ -1,0 +1,14 @@
+%p.form-required-field-note NB: By clicking 'Request Loan' you are accepting the School of Education Terms and Conditions
+
+#form
+  = simple_form_for @loan do |f|
+    = f.hidden_field :request_date, :value => @today_date
+    = f.hidden_field :approved, :value => false
+    = f.hidden_field :returned, :value => false
+    = f.hidden_field :inventory_id, :value => @inventory
+    = f.hidden_field :requestee_name, :value => @this_user_name
+    = f.hidden_field :requestee_email, :value => @this_user_email
+    = f.input :due_date, label: 'Enter device return date:', required: true, as: :date, html5: true
+    = f.input :amount_requested, label: 'How many of this device do you require?', collection: 1..15, selected: 1
+    = f.input :reason_for_loan, label: 'Please tell us why you require this device, and justify the amount required:', required: true, :placeholder => 'Type your reason why here'
+    = submit_button 'Request Loan'

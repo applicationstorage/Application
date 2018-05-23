@@ -1,0 +1,29 @@
+A loan was requested for the email:
+= @loans.first.requestee_email
+%br
+on
+%br
+= @loans.first.request_date.strftime("%d/%m/%Y")
+%br
+%br
+Please find the details of your request below:
+%table.information-table
+  - @loans.each do |loan|
+    - @inventories.where(:id => loan.inventory_id).each do |inventory|
+      %tr
+        %td Item:
+        %td= inventory.item_name
+      %tr
+        %td Category:
+        %td= inventory.item_category
+      %tr
+        %td Amount Requested:
+        %td= loan.amount_requested
+      %tr
+        %td Reason for loan:
+        %td= loan.reason_for_loan
+      %tr
+        %td Loan due:
+        %td= loan.due_date.strftime("%d/%m/%Y")
+      %br
+

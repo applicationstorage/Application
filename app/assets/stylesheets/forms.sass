@@ -1,0 +1,63 @@
+@import 'variables'
+
+.control-label
+  &.radio_buttons, &.check_boxes
+    margin-bottom: 0
+  &.inline_radio_buttons, &.inline_check_boxes
+    display: block
+    margin-bottom: 8px
+
+#form
+  margin-left: 60px
+  margin-top: 15px
+  label
+    margin: 5px 0px
+    color: $h2-font-color
+  select
+    margin: 15px 0px
+    color: $h2-font-color
+  input
+    max-width: 200px
+    margin: 15px 0px
+    color: $h2-font-color
+  textarea
+    max-width: 600px
+  input[type = "Submit"]
+    padding: 5px 6px
+    border: none
+    background-color: $edit-button
+    color: $bar-color-t
+    text-align: center
+    border-radius: 4px
+  input[type = "Submit"]:hover
+    -webkit-transition: width 2s, height 4s /* Safari */
+    transition: width 2s, height 4s
+
+#multipage-content-form
+  max-width: 600px
+  background-color: $behind-page-bg
+  margin: 0px auto
+  padding: 30px
+  border-radius: 5px
+  label
+    margin: 5px 0px
+    color: $h2-font-color
+  select
+    margin: 15px 0px
+    color: $h2-font-color
+  input
+    margin: 15px 0px
+    color: $h2-font-color
+
+.form-required-field-note
+  margin-left: 60px
+  color: red
+  font-size: 0.8em
+  font-weight: 400
+
+.indent-form-options
+  margin-left: 60px
+  padding: 10px 20px
+  width: 270px
+  background-color: $behind-page-bg
+  border-radius: 5px

@@ -1,0 +1,43 @@
+%h2.h2-title Loan History
+%table.information-table
+  %h3.h3-title Your ongoing loans:
+  %tr
+    %th Item
+    %th Model
+    %th Category
+    %th Requested
+    %th Return Date
+  - @loans.each do |loan|
+    - @items.where(:loan_token => loan.loan_token).each do |item|
+      - @inventories.where(:id => item.inventory_id).each do |inventory|
+        %tr
+          %td= inventory.item_name
+          %td= item.model_type
+          %td= inventory.item_category
+          %td= loan.request_date.strftime("%d/%m/%Y")
+          %td= loan.due_date.strftime("%d/%m/%Y")
+
+%table.information-table
+  %h3.h3-title Your previous loans:
+  %tr
+    %th Item
+    %th Model
+    %th Category
+    %th Requested
+    %th Return Date
+    %th Late?
+  - @loan_histories.each do |loan_history|
+    - @loans.where(:id => loan_history.loan_id).each do |loan|
+      - @items.where(:id => loan_history.item_id).each do |item|
+        - @inventories.where(:id => item.inventory_id).each do |inventory|
+          %tr
+            %td= inventory.item_name
+            %td= item.model_type
+            %td= inventory.item_category
+            %td= loan.request_date.strftime("%d/%m/%Y")
+            %td= loan.due_date.strftime("%d/%m/%Y")
+            %td
+              - if loan_history.late
+                Yes
+              - else
+                No

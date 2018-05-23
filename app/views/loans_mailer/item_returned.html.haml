@@ -1,0 +1,28 @@
+This email is to notify 
+= @loan.requestee_email
+%br
+that your loan requested on
+%br
+= @loan.request_date.strftime("%d/%m/%Y")
+%br
+has been returned on
+%br
+= @loan_history.returned_on.strftime("%d/%m/%Y")
+%br
+- if @loan_history.late
+  This loan was returned late. The set due date was
+  = @loan.due_date.strftime("%d/%m/%Y")
+  %br
+%br
+Please find the details of your return below:
+%br
+Item:
+= @inventory.item_name
+%br
+Model:
+= @item.model_type
+%br
+Serial number:
+= @item.serial_equipment_number
+
+        

@@ -1,0 +1,18 @@
+%h2.h2-title Confirm Multiple Loan Details
+%p.form-required-field-note NB: By clicking 'Submit Request' you are accepting the School of Education Terms and Conditions
+
+%table.information-table#upper-space-table
+  %tr
+    %th Item name
+    %th Return date
+    %th Quantity
+    %th Reason for request
+  - @loans.each do |loan|
+    - @inventories.where(:id => loan.inventory_id).each do |inventory|
+      %tr
+        %td= inventory.item_name
+        %td= loan.due_date.strftime("%d/%m/%Y")
+        %td= loan.amount_requested
+        %td= loan.reason_for_loan
+
+#request-all-items= link_to 'Submit Request', request_baskets_path, method: :post

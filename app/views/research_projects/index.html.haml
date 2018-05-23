@@ -1,0 +1,17 @@
+%h2.h2-title Research Projects
+
+%table.information-table#upper-space-table
+  %tr
+    %th Researcher
+    %th Email
+    %th No. of devices
+    %th End of project
+    %th View
+  - @research_projects.each do |research_project|
+    - @itemCount = @items.where(:research_project_id => research_project.id).count
+    %tr#r1
+      %td= research_project.researcher_name
+      %td= research_project.researcher_email
+      %td= @itemCount
+      %td= research_project.end_of_project.strftime("%d/%m/%Y")
+      %td.view-button= link_to "View", edit_research_project_path(research_project)

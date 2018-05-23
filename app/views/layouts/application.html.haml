@@ -1,0 +1,123 @@
+!!!
+%html
+  %head
+    %title University of Sheffield School of Education Loans System - #{content_for(:title)}
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
+    / need a proper favicon image
+    = favicon_link_tag 'favicon.png'
+    / google fonts - NOT USED AS OF 17/4
+    %link{:href => "https://fonts.googleapis.com/css?family=Noto+Serif", :rel => "stylesheet"}
+    = stylesheet_link_tag    "application", media: :all
+    = stylesheet_link_tag    "balloon.min"
+    = javascript_include_tag "application"
+    = favicon_link_tag '/assets/favicon.ico'
+    = csrf_meta_tags
+
+  %body{ class: environment_notice_body_class }
+    /= render 'layouts/environment_notice'
+    .flash-messages
+      - flash.each do |name, msg|
+        - next unless name == 'alert' || name == 'notice'
+        .alert.fade.in
+          .container
+            - if name == 'notice'
+              = fa_icon('check', class: 'flash-success')
+            - else
+              = fa_icon('warning', class: 'flash-error')
+            = msg
+            %a{ href: '#', title: 'Hide this message', data: { dismiss: :alert } } Dismiss
+
+
+    %noscript
+      .warning-page-cover
+        .alert.alert-info
+          %h2 Sorry, it appears that you are using a web browser without JavaScript which prevents us offering you a rich online experience.
+          %p Please enable JavaScript or use a different web browser, or alternatively contact the CiCS Helpdesk for assistance.
+
+    #top-bar
+      - if user_signed_in?
+        %li.dropdown
+          = link_to '#', data: { toggle: :dropdown }, class: 'dropdown-toggle', role: 'button', 'aria-haspopup' => true, 'aria-expanded' => false do
+            = fa_icon 'user', text: current_user.email
+            %b.caret
+            %ul.dropdown-menu
+              %li
+                = link_to destroy_user_session_path, method: :delete, title: "Log out of the system" do
+                  = fa_icon 'sign-out', text: 'Log out'
+
+      - if can?(:read, Inventory)
+        = link_to 'User Manual (pdf)', asset_path("SchoolOfEduLoansManual.pdf"), target: :_blank, id: 'manual-link'
+
+    #title
+      - if not can?(:read, Inventory) and user_signed_in?
+        = link_to (image_tag('UOSLogo.png', width: '300', alt:'University of Sheffield Logo')), home_path, title: "University of Sheffield School of Education Loans System", class: cp(home_path)
+      - else
+        = link_to (image_tag('UOSLogo.png', width: '300', alt:'University of Sheffield Logo')), admin_summaries_path, title: "University of Sheffield School of Education Loans System", class: cp(admin_summaries_path)
+      %h1 School of Education Loans System
+
+    %nav.navBar
+      %ul
+        %li
+          - if not can?(:read, Inventory) and user_signed_in?
+            = link_to fa_icon('home', text: 'Home'), home_path, title: "Home", class: cp(home_path)
+
+        %li
+          - if not can?(:read, Inventory) and user_signed_in?
+            = link_to fa_icon('history', text: 'Loan History'), loanHistory_path, title: "Loan History", class: cp(loanHistory_path)
+
+        %li
+          - if not can?(:read, Inventory) and user_signed_in?
+            = link_to fa_icon('shopping-basket', text: 'Request Basket'), request_baskets_path, title: "Request Basket", class: cp(request_baskets_path)
+
+        %li
+          - if can?(:read, Inventory)
+            = link_to fa_icon('home', text: 'Summary'), admin_summaries_path, title: "Home - Summery of loans", class: cp(admin_summaries_path)
+
+        %li
+          - if can?(:read, Inventory)
+            = link_to fa_icon('sitemap', text: 'Inventory'), inventories_path, title: "Inventory", class: cp(inventories_path)
+
+        %li
+          - if can?(:read, Inventory)
+            = link_to fa_icon('thumbs-up', text: 'Loan Approval'), loans_path, title: "Loan Approval", class: cp(loans_path)
+
+        %li
+          - if can?(:read, Item)
+            = link_to fa_icon('graduation-cap', text: 'Research Projects'), research_projects_path, title: "Research Projects", class: cp(research_projects_path)
+
+        %li
+          - if can?(:read, Item)
+            = link_to fa_icon('history', text: 'Loans History'), loan_histories_path, title: "Loans History", class: cp(loan_histories_path)
+
+        %li
+          - if can?(:read, Disposed)
+            = link_to fa_icon('trash', text: 'Disposed'), disposeds_path, title: "Disposed", class: cp(disposeds_path)
+
+    #main-container
+      .info-box
+        = yield
+
+    #footer
+      %footer
+        %table#user-footer
+          %tr
+            %th Collecting / Returning:
+            %th Terms and Conditions:
+            %th Contact us:
+          %tr
+            %td Time: between 8.45am and 4pm
+            %td= link_to 'Terms and Conditions (pdf)', asset_path("loanPolicy.pdf"), target: :_blank
+            %td
+              Email:
+              = mail_to 'p.derbyshire@sheffield.ac.uk'
+          %tr
+            %td Contact Patrick Derbyshire for location
+            %td
+            %td Telephone: 0114 222 8100 (ext 28100)
+
+    #bottom-bar
+      %p
+        &copy;#{Date.today.year}
+        = link_to 'epiGenesys', 'https://www.epigenesys.org.uk', target: '_blank', title: 'Goto the epiGenesys website'

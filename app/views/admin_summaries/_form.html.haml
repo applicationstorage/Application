@@ -1,0 +1,4 @@
+#form
+  = simple_form_for @loan, :url => admin_summary_path, :method => :put do |f|
+    = f.input :due_date, label: 'Edit device return date:', required: true, as: :date, html5: true
+    = submit_button 'Edit Loan'

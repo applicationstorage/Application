@@ -1,0 +1,6 @@
+#multipage-content-form
+  = simple_form_for @research_project do |f|
+    = f.input :researcher_name, :label => "Edit Researcher's name: ", :placeholder => 'Name of researcher'
+    = f.input :researcher_email, :label => "Edit Researcher's email:", :placeholder => 'Email of researcher'
+    = f.input :end_of_project, :label => "Edit the project end date:", as: :date, html5: true
+    = submit_button 'Save Changes'

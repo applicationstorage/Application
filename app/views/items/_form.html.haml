@@ -1,0 +1,38 @@
+= javascript_include_tag "item_form.js"
+
+%p.form-required-field-note * required fields
+
+#form
+  = simple_form_for @item do |f|
+    = f.input :model_type, :label => "Model name:", required: true, :placeholder => 'Model name'
+    = f.input :serial_equipment_number, :label => "Device serial or equipment number:", required: true, :placeholder => 'Serial Number'
+    = f.input :purchase_price, :label => "Purchase price of device:", :placeholder => 'Price'
+    = f.input :purchase_date, :label => "Purchase date of device:", required: true, as: :date, html5: true
+    = f.input :item_location, :label => "Location of device:", :placeholder => 'Device location'
+
+    %label Is the device in use / being loaned?
+    = f.check_box :in_use, :id => "in-use", :label => 'Is this device a part of a research project?', :onclick => "inUseCheckFunction()"
+    #device-in-use{:style => 'visibility:hidden; display:none'}
+      %p.form-required-field-note NB - a device cannot be in use and be a part of a research project
+      = f.fields_for :loan do |lF|
+        .indent-form-options
+          = lF.input :requestee_name, :label => "User's name:", required: true, :placeholder => 'Name of loanee'
+          = lF.input :requestee_email, :label => "User's email:", required: true, :placeholder => 'Email of loanee'
+          = lF.input :due_date, :label => "Return date:", required: true, as: :date, html5: true
+
+    %br
+
+    %label Is this device a part of a research project?
+    = f.check_box :is_research_project, :id => "is-research-project", :label => 'Is this device a part of a research project?', :onclick => "researchCheckFunction()"
+    #device-research-project{:style => 'visibility:hidden; display:none'}
+      %p.form-required-field-note NB - a device cannot be in use and be a part of a research project
+      =f.fields_for :research_project do |rF|
+        .indent-form-options
+          = rF.input :researcher_name, :label => "Researcher's name:", :placeholder => 'Name of researcher'
+          = rF.input :researcher_email, :label => "Researcher's email:", required: true, :placeholder => 'Email of researcher'
+
+    %br
+    %br
+
+    = f.hidden_field :inventory_id, :value => @inventories
+    = submit_button 'Save Device'

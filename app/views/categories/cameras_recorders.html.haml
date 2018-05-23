@@ -1,0 +1,19 @@
+- content_for :title, "Category - Cameras & Recorders"
+
+%h2.h2-title Category - Cameras & Recorders
+
+%table#category-table
+  - @cams_recs.each do |cam_rec|
+    %tr
+      %td
+        #c1
+          = cam_rec.item_name
+          %br
+          = cam_rec.loan_time
+      %td#c2
+        = link_to 'Add to request basket', pages_path(:id => cam_rec.id), method: :post
+      %td#c3
+        = link_to 'Click to request device', new_loan_path(:id => cam_rec.id)
+
+.back-button
+  = link_to fa_icon('angle-left', text: 'Back'), home_path

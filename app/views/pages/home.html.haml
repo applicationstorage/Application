@@ -1,0 +1,35 @@
+- content_for :title, "Home"
+
+%h2.h2-title Home
+
+%table#user-home-table
+  %tr
+    %td.cat-image 
+      = link_to image_tag('computer.png', alt:'Category image'), departmental_devices_path
+    %td.cat-image 
+      = link_to image_tag('laptop.png', alt:'Category image'), laptops_path
+    %td.cat-image  
+      = link_to image_tag('tablet.png', alt:'Category image'), tablets_path
+  %tr
+    %td.cat-name
+      = link_to 'Departmental Devices', departmental_devices_path
+    %td.cat-name 
+      = link_to 'Laptops', laptops_path
+    %td.cat-name
+      = link_to 'Tablets', tablets_path
+    
+%table#user-home-table   
+  %tr
+    %td.cat-image  
+      = link_to image_tag('camera.png', alt:'Category image'), cameras_recorders_path
+    %td.cat-image 
+      = link_to image_tag('audio.png', alt:'Category image'), audio_devices_path
+    %td.cat-image  
+      = link_to image_tag('misc.png', alt:'Category image'), misc_devices_path
+  %tr
+    %td.cat-name
+      = link_to 'Cameras & Recorders', cameras_recorders_path
+    %td.cat-name
+      = link_to 'Audio Devices', audio_devices_path
+    %td.cat-name
+      = link_to 'Misc. Devices', misc_devices_path

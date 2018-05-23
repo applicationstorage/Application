@@ -1,0 +1,35 @@
+%h2.h2-title 
+  Research Project for 
+  = @research_project.researcher_name
+
+#table-right-buttons
+  #left-button
+    = link_to fa_icon('hourglass-end', text:'End Research Project'), research_project_path(@research_project), method: :delete, data: {confirm: 'WARNING! You are about to end this project and make all the devices within it available in the inventory. Are you sure you want to do this?'}
+
+.extra-information
+  Project End:
+  = @research_project.end_of_project.strftime("%B %d, %Y")
+  %br
+  Email: 
+  = @research_project.researcher_email
+
+%table.information-table#research-table
+  %tr
+    %th Item Name
+    %th Model
+    %th Serial No.
+    %th Purchase Price
+    %th Purchase Date
+  - @items.each do |item|
+    - @inventories.where(:id => item.inventory_id).each do |inventory|
+      %tr
+        %td= inventory.item_name
+        %td= item.model_type
+        %td= item.serial_equipment_number
+        %td= item.purchase_price
+        %td= item.purchase_date.strftime("%d/%m/%Y")
+
+= render "form"
+    
+.back-button
+  = link_to fa_icon('angle-left', text: 'Back'),research_projects_path

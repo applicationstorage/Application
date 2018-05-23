@@ -1,0 +1,19 @@
+- content_for :title, "Category - Tablets"
+
+%h2.h2-title Category - Tablets
+
+%table#category-table
+  - @tablets.each do |tablet|
+    %tr
+      %td
+        #c1
+          = tablet.item_name
+          %br
+          = tablet.loan_time
+      %td#c2
+        = link_to 'Add to request basket', pages_path(:id => tablet.id), method: :post
+      %td#c3
+        = link_to 'Click to request device', new_loan_path(:id => tablet.id)
+
+.back-button
+  = link_to fa_icon('angle-left', text: 'Back'), home_path

@@ -1,0 +1,34 @@
+
+This email is to notify 
+= @loan.requestee_email
+%br
+of the loan requested on
+%br
+= @loan.request_date.strftime("%d/%m/%Y")
+%br
+has had its deadline updated to
+%br
+= @loan.due_date.strftime("%d/%m/%Y")
+%br
+%br
+Quantity of item requested:
+= @loan.amount_requested
+%br
+%br
+Please find the details of your request below:
+%table.information-table
+  - @item.each do |item|
+    - inventory = @inventories
+    %tr
+      %td Item:
+      %td= inventory.item_name
+    %tr
+      %td Category:
+      %td= inventory.item_category
+    %tr
+      %td Model
+      %td= item.model_type
+    %tr
+      %td Serial Number
+      %td= item.serial_equipment_number
+        

@@ -1,0 +1,18 @@
+%h2.h2-title Disposal History
+
+%table.information-table#upper-space-table
+  %tr
+    %th Item
+    %th Category
+    %th Model
+    %th Date disposed
+    %th Delete?
+  - @items.where(:disposed_of => true).each do |item|
+    - @inventories.select("item_category", "item_name").where(:id => item.inventory_id).each do |inventory|
+      - @disposed.where(:item_id => item.id).each do |dispose|
+        %tr
+          %td= inventory.item_name
+          %td= inventory.item_category
+          %td= item.model_type
+          %td= dispose.date_disposed
+          %td.delete-button= link_to 'Delete', disposed_path(dispose), method: :delete, data: {confirm: 'Are you sure you wish to permenantly delete this device?'}

@@ -1,0 +1,29 @@
+%h2.h2-title Inventory
+
+#table-right-buttons
+  #left-button
+    = link_to fa_icon('clipboard', text: 'Produce Inventory List'), "https://team08.demo1.hut.shefcompsci.org.uk/items.csv", target: "_blank", rel: "nofollow"
+  #right-button
+    = link_to fa_icon('plus-circle', text: 'Add New Item'), new_inventory_path
+
+%table.information-table
+  %tr
+    %th Item
+    %th Category
+    %th No. in stock/Total no.
+    %th Loan Time
+    %th View
+    %th Edit
+    %th Destroy
+  - @inventories.each do |inventory|
+    %tr
+      %td= inventory.item_name
+      %td= inventory.item_category
+      %td
+        = inventory.total_available
+        \/
+        = inventory.total_stock
+      %td= inventory.loan_time
+      %td.view-button= link_to 'View', items_path(:id => inventory.id)
+      %td.edit-button= link_to 'Edit', edit_inventory_path(inventory)
+      %td.delete-button= link_to 'Destroy', inventory_path(inventory), method: :delete, data: {confirm: 'WARNING! You are about to destroy a table of items, are you sure you want to do this?'}
